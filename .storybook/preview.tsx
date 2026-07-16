@@ -13,9 +13,13 @@ const preview: Preview = {
                     // 1) Styles / foundations
                     "Styles",
                     ["Color", "Typography", "Icons", "Elevation", "Shape", "Logos"],
-                    // 2) Components (flat — no sub-folders)
+                    // 2) Base components (flat — no sub-folders)
                     "Components",
-                    // 3) App Screens (always last)
+                    // 3) Application UI (complex components)
+                    "Application UI",
+                    // 4) Auth page templates
+                    "Log in / Sign up",
+                    // 5) App Screens (always last)
                     "App Screens",
                     "*",
                 ],
