@@ -2,7 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 /**
  * Foundations → Typography
- * The Nimbus type system, mirrored from adsbynimbus.com. Proxima Nova throughout.
+ * The Nimbus type scale from the Figma token export (6. Typography), wired into
+ * `theme.css` and rendered here via the Tailwind text-* classes so the samples
+ * always reflect the theme. Proxima Nova throughout.
  * Class names are full literal strings so Tailwind v4's scanner generates them.
  */
 const meta = {
@@ -14,37 +16,42 @@ const meta = {
 export default meta;
 type Story = StoryObj;
 
-type TypeStyle = { name: string; cls: string; spec: string; sample: string };
+type TypeStyle = { name: string; cls: string; spec: string };
 
-// Named Nimbus text styles with exact size/weight/line-height/color from the site.
+// Token type scale — text-*/display-* map to --text-* in theme.css.
 const STYLES: TypeStyle[] = [
-    { name: "Hero", cls: "text-[53px] leading-[1.05] font-black text-[#181d27]", spec: "Proxima Nova · 900 · 53px · 1.05", sample: "Efficiency at every layer" },
-    { name: "Section Title", cls: "text-[33px] leading-[1.15] font-extrabold text-[#181d27]", spec: "800 · 33px", sample: "How Nimbus scales your stack" },
-    { name: "Stat Value", cls: "text-[58px] leading-none font-bold text-[#181d27]", spec: "700 · 58px · 1.0", sample: "3.6×" },
-    { name: "Big Number", cls: "text-[64px] leading-none font-bold text-[#08c6c7]", spec: "700 · 64px · teal", sample: "01" },
-    { name: "Subtitle / Lead", cls: "text-[26px] leading-[1.35] font-medium text-[#535862]", spec: "500 · 26px · 1.35 · gray", sample: "A closer look at the results we delivered." },
-    { name: "Key Text", cls: "text-[21px] leading-[25px] text-[#181d27]", spec: "400 · 21px · 25px", sample: "The takeaway that matters most to your team." },
-    { name: "Body", cls: "text-[18px] leading-[24px] text-[#535862]", spec: "400 · 18px · 24px · gray", sample: "Body copy for paragraphs and descriptions across the site." },
-    { name: "Emphasis", cls: "text-[18px] leading-[24px] font-bold text-[#181d27]", spec: "700 · 18px", sample: "Bolded inline emphasis within body copy." },
-    { name: "Eyebrow / Label", cls: "text-[13px] uppercase tracking-[0.11em] font-semibold text-[#08c6c7]", spec: "600 · 13px · uppercase · teal", sample: "Case Study" },
+    { name: "display-2xl", cls: "text-display-2xl font-semibold", spec: "72 / 90" },
+    { name: "display-xl", cls: "text-display-xl font-semibold", spec: "60 / 72" },
+    { name: "display-lg", cls: "text-display-lg font-semibold", spec: "48 / 60" },
+    { name: "display-md", cls: "text-display-md font-semibold", spec: "36 / 44" },
+    { name: "display-sm", cls: "text-display-sm font-semibold", spec: "30 / 38" },
+    { name: "display-xs", cls: "text-display-xs font-semibold", spec: "24 / 32" },
+    { name: "text-xl", cls: "text-xl font-semibold", spec: "26 / 30" },
+    { name: "text-lg", cls: "text-lg font-medium", spec: "18 / 28" },
+    { name: "text-md", cls: "text-md", spec: "15 / 24" },
+    { name: "text-sm", cls: "text-sm", spec: "13 / 20" },
+    { name: "text-xs", cls: "text-xs", spec: "12 / 18" },
+    { name: "text-xxs", cls: "text-xxs", spec: "10 / 16" },
 ];
 
-const Row = ({ name, cls, spec, sample }: TypeStyle) => (
+const SAMPLE = "Efficiency at every layer";
+
+const Row = ({ name, cls, spec }: TypeStyle) => (
     <div className="flex flex-col gap-2 border-b border-secondary py-6">
         <div className="flex flex-wrap items-baseline gap-x-3">
             <span className="text-sm font-semibold text-primary">{name}</span>
             <span className="text-xs text-tertiary">{spec}</span>
         </div>
-        <p className={cls}>{sample}</p>
+        <p className={`${cls} text-primary`}>{SAMPLE}</p>
     </div>
 );
 
 export const TypeScale: Story = {
     render: () => (
-        <div className="flex flex-col gap-10 bg-[#f9f7f3] p-8 text-primary">
+        <div className="flex flex-col gap-10 bg-primary p-8">
             <div className="flex flex-col gap-2">
-                <h2 className="text-[33px] font-extrabold text-[#181d27]">Nimbus typography</h2>
-                <p className="text-[18px] text-[#535862]">Proxima Nova. Named styles pulled from adsbynimbus.com.</p>
+                <h2 className="text-display-xs font-semibold text-primary">Nimbus typography</h2>
+                <p className="text-md text-tertiary">Proxima Nova. Type scale from the Nimbus token export (size / line-height in px).</p>
             </div>
 
             <section className="flex flex-col">
@@ -54,20 +61,17 @@ export const TypeScale: Story = {
             </section>
 
             <section className="flex flex-col gap-3">
-                <h3 className="text-lg font-semibold text-[#181d27]">Weights</h3>
-                <div className="flex flex-col gap-1 text-[28px] text-[#181d27]">
+                <h3 className="text-lg font-semibold text-primary">Weights</h3>
+                <div className="flex flex-col gap-1 text-display-xs text-primary">
                     <span className="font-normal">Regular 400 — Nimbus</span>
                     <span className="font-medium">Medium 500 — Nimbus</span>
                     <span className="font-semibold">Semibold 600 — Nimbus</span>
                     <span className="font-bold">Bold 700 — Nimbus</span>
-                    <span className="font-extrabold">Extrabold 800 — Nimbus</span>
-                    <span className="font-black">Black 900 — Nimbus</span>
                 </div>
-                <p className="max-w-2xl text-sm text-[#535862]">
-                    ⚠️ The Nimbus site uses <strong>800 (extrabold)</strong> and <strong>900 (black)</strong> for
-                    headings, and <strong>500 (medium)</strong> for subtitles. Your current Adobe Fonts kit only ships
-                    400 / 600 / 700, so 500 / 800 / 900 fall back to the nearest available weight. Add those weights to
-                    the kit (same URL) for pixel-accurate headings.
+                <p className="max-w-2xl text-sm text-tertiary">
+                    Proxima Nova is loaded via the Adobe Fonts kit in <code>index.html</code>. Ensure the kit ships the
+                    weights you use (Regular 400 / Medium 500 / Semibold 600 / Bold 700); missing weights fall back to the
+                    nearest available.
                 </p>
             </section>
         </div>
