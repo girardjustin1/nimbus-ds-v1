@@ -59,7 +59,10 @@ const PinkPill = ({ children }: { children: ReactNode }) => (
 );
 
 const BlockListSection = ({ title, badge, description, searchPlaceholder, searchActions, columns, rows }: BlockListSectionProps) => {
-    const [sort, setSort] = useState<SortDescriptor>({ column: columns.find((c) => c.allowsSorting)?.id, direction: "ascending" });
+    const [sort, setSort] = useState<SortDescriptor>({
+        column: columns.find((c) => c.allowsSorting)?.id ?? columns[0].id,
+        direction: "ascending",
+    });
 
     const sortedRows = useMemo(() => {
         if (!sort.column) return rows;

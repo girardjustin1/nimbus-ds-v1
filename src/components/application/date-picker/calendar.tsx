@@ -22,7 +22,11 @@ export const CalendarContextProvider = ({ children }: PropsWithChildren) => {
     const [value, onChange] = useState<DateValue | null>(null);
     const [focusedValue, onFocusChange] = useState<DateValue | undefined>();
 
-    return <AriaCalendarContext.Provider value={{ value, onChange, focusedValue, onFocusChange }}>{children}</AriaCalendarContext.Provider>;
+    // react-aria's CalendarContext types `onChange` with a wider (range-capable) value than
+    // this single-date setter. Cast to satisfy the version-skewed types without changing behavior.
+    const contextOnChange = onChange as unknown as (value: DateValue | readonly DateValue[]) => void;
+
+    return <AriaCalendarContext.Provider value={{ value, onChange: contextOnChange, focusedValue, onFocusChange }}>{children}</AriaCalendarContext.Provider>;
 };
 
 interface CalendarProps extends AriaCalendarProps<DateValue> {
