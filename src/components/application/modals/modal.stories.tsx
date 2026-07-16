@@ -34,7 +34,7 @@ export const Default: Story = {
                     <Dialog>
                         {({ close }) => (
                             <div className="w-full max-w-100 rounded-xl bg-primary p-6 shadow-xl ring-1 ring-secondary_alt">
-                                <FeaturedIcon icon={CheckCircle} color="brand" theme="light" size="lg" />
+                                <FeaturedIcon icon={CheckCircle} color="gray" theme="modern" size="lg" />
                                 <div className="mt-4 flex flex-col gap-1">
                                     <h2 className="text-lg font-semibold text-primary">Publish changes</h2>
                                     <p className="text-sm text-tertiary">

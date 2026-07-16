@@ -1,0 +1,106 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+<div style={{ maxWidth: 900 }}>
+
+# Nimbus Design System
+
+The single source of truth for the **Nimbus** brand — design tokens, foundations,
+reusable UI components, application patterns, and ready-to-use product screens, all
+themed from the Nimbus Figma token export.
+
+Built with **React 19 · TypeScript · Tailwind CSS v4 · React Aria · Recharts ·
+Storybook 10 · Vite**.
+
+<div style={{ display: "flex", gap: 12, flexWrap: "wrap", margin: "20px 0 28px" }}>
+  <span style={{ background: "#DA6EA3", color: "#fff", padding: "6px 14px", borderRadius: 999, fontSize: 13, fontWeight: 600 }}>Pink primary · #DA6EA3</span>
+  <span style={{ background: "#37B6B7", color: "#fff", padding: "6px 14px", borderRadius: 999, fontSize: 13, fontWeight: 600 }}>Teal secondary · #37B6B7</span>
+  <span style={{ background: "#101828", color: "#fff", padding: "6px 14px", borderRadius: 999, fontSize: 13, fontWeight: 600 }}>Proxima Nova</span>
+</div>
+
+Everything here is generated from one theme, so the brand stays consistent from a
+single button to a full application screen — in both light and dark modes.
+
+---
+
+## How the library is organized
+
+The sidebar is ordered top-to-bottom the way you'd build with it: start from the
+brand primitives, move through components, then see them assembled into full screens.
+
+### 🎨 Styles
+The design foundations, rendered live from the Nimbus tokens.
+
+**Color · Typography · Icons · Elevation · Shape · Logos**
+
+### 🧱 Base Components
+The core building blocks (19), each on React Aria for accessibility.
+
+**Avatars · Badges · Badge Groups · Buttons · Button Group · Checkbox · Dropdown ·
+File Upload · Form · Input · Multi Select · Progress Indicators · Radio Buttons ·
+Select · Slider · Tags · Textarea · Toggle · Tooltip**
+
+### 🧩 Application UI
+Richer, composed patterns (23) for building product interfaces.
+
+**App Navigation – Sidebar · Alerts · Breadcrumbs · Carousel · Charts · Code Snippet ·
+Command Menu · Date Picker · Dividers · Empty State · File Upload · Filter Bars ·
+Loading Indicator · Metrics · Modal · Notifications · Pagination · Pie Charts ·
+Progress Steps · Radar Charts · Slideout Menu · Table · Tabs**
+
+### 🔐 Account Login
+Auth page templates (4): **Sign up · Log in · Forgot Password · Verify Email**.
+
+### 🖥️ App Screens
+Full Nimbus product screens (17) assembled entirely from the system — each with
+multiple states/stories where relevant.
+
+| Screen | What it covers |
+| --- | --- |
+| Key Metrics Dashboard | Nimbus Exchange metric cards + sparkline charts |
+| Performance Insights | Reporting query builder (table / line / bar / pie states) |
+| Saved Queries | Saved reports, query builder & save-query modal |
+| Nimbus+ Reporting | Nimbus+ demand upsell filter panel + modal |
+| Nimbus Benchmarks | Nimbus-vs-your-app comparison, config & leaderboard |
+| Nimbus+ Payments | Publisher statements, payouts & completed payments |
+| Nimbus+ Payouts | Internal payouts admin (submit / resubmit states) |
+| Manage Active Demand | App-Ads.txt flow + integrated demand partners |
+| Manage Assets | Add asset · create campaign · view campaigns |
+| View All Campaigns | Wide campaigns table + add-asset form |
+| Campaign Setup | 8-step campaign creation wizard |
+| Deal Activation / DAS – Billing Rates | Deal activation setup & billing rates |
+| Billing Setup | Billing configuration + modals |
+| Add DocuSign Contracts | Contract signing flow |
+| SDK & Documentation | iOS / Android SDK cards |
+| Ad Blocking · Ad Blocking – Blocklists | Blocked categories / advertisers / apps |
+
+---
+
+## Brand & tokens
+
+The theme comes from the Nimbus design tokens in `reference/styles/` and is applied in
+`src/styles/theme.css`:
+
+- **Brand** — pink primary (`#DA6EA3` / `--color-brand-500`) with teal (`#37B6B7`) as the secondary / `_alt` accent.
+- **Neutrals** — a warm gray scale for surfaces, text, and borders.
+- **Typography** — Proxima Nova on the Nimbus type scale (`text-md` 15px, display sizes up to 72px).
+- **Radius & spacing** — Nimbus token values (e.g. `radius-md` 8px).
+
+Reuse the theme classes (`bg-brand-solid`, `text-primary`, `border-secondary`,
+`text-md`, `radius-md`, …) and new work inherits the Nimbus brand for free.
+
+## Getting started
+
+```bash
+npm install              # install dependencies
+npm run storybook        # launch this library at http://localhost:6006
+npm run build-storybook  # static build → ./storybook-static
+```
+
+Add a component or screen with a matching `*.stories.tsx` and it appears in the correct
+category automatically. Every push to `main` redeploys the live Storybook to GitHub Pages:
+
+**→ https://girardjustin1.github.io/nimbus-ds-v1/**
+
+</div>

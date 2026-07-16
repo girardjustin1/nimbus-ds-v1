@@ -13,7 +13,7 @@ const items: SelectItemType[] = [
 ];
 
 const meta = {
-    title: "Components/Multi Select",
+    title: "Base Components/Multi Select",
     component: MultiSelect,
     parameters: { layout: "padded" },
     tags: ["autodocs"],

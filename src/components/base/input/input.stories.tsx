@@ -5,7 +5,7 @@ import { Input } from "@/components/base/input/input";
 import { InputGroup } from "@/components/base/input/input-group";
 
 const meta = {
-    title: "Components/Input",
+    title: "Base Components/Input",
     component: Input,
     parameters: { layout: "padded" },
     tags: ["autodocs"],

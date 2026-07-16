@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/base/checkbox/checkbox";
  * Selected/indeterminate states use the Nimbus brand-solid (pink) token.
  */
 const meta = {
-    title: "Components/Checkbox",
+    title: "Base Components/Checkbox",
     component: Checkbox,
     parameters: { layout: "centered" },
     tags: ["autodocs"],

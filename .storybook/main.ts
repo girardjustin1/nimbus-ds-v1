@@ -5,12 +5,12 @@ const config: StorybookConfig = {
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
+  // Docs/autodocs only. The testing addons that `storybook init` added
+  // (Vitest test module, a11y, Chromatic visual tests) attach per-story status
+  // badges and run in-browser checks that can throw "Illegal invocation" in
+  // some browser setups — removed for a clean design-system showcase.
   "addons": [
-    "@chromatic-com/storybook",
-    "@storybook/addon-vitest",
-    "@storybook/addon-a11y",
-    "@storybook/addon-docs",
-    "@storybook/addon-mcp"
+    "@storybook/addon-docs"
   ],
   "framework": "@storybook/react-vite"
 };

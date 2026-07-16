@@ -7,7 +7,7 @@ import { RadioButton, RadioGroup } from "@/components/base/radio-buttons/radio-b
  * RadioGroup and shared with its RadioButton children via context.
  */
 const meta = {
-    title: "Components/Radio Buttons",
+    title: "Base Components/Radio Buttons",
     component: RadioGroup,
     parameters: { layout: "centered" },
     tags: ["autodocs"],

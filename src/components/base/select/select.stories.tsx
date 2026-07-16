@@ -11,7 +11,7 @@ const items: SelectItemType[] = [
 ];
 
 const meta = {
-    title: "Components/Select",
+    title: "Base Components/Select",
     component: Select,
     parameters: { layout: "padded" },
     tags: ["autodocs"],

@@ -23,7 +23,7 @@ export const ForgotPasswordPage = () => {
                 <div className="flex flex-col items-center gap-6 text-center">
                     <NimbusLogo className="h-8" />
 
-                    <FeaturedIcon icon={Key01} color="brand" theme="light" size="xl" />
+                    <FeaturedIcon icon={Key01} color="gray" theme="modern" size="xl" />
 
                     <div className="flex flex-col gap-2">
                         <h1 className="text-display-xs font-semibold text-primary">Forgot password?</h1>

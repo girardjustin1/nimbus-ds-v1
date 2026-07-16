@@ -2,14 +2,22 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GlobalNav } from "./global-nav";
 
 const meta = {
-    title: "Application UI/Global Nav",
+    title: "Application UI/App Navigation - Sidebar",
     component: GlobalNav,
+    tags: ["autodocs"],
     parameters: {
         layout: "fullscreen",
+        docs: {
+            description: {
+                component:
+                    "The Nimbus sidebar app navigation — a collapsible dark rail (280px ↔ 64px) with a static, icon-backed Reporting section, collapsible text sections, a teal active indicator, NEW/PRO badges, and a footer. Data-driven via `config.ts`; state (collapse, open sections, active item) is managed locally. See the **Expanded**, **Collapsed**, and **Nav Only** stories below.",
+            },
+        },
     },
     argTypes: {
         defaultActiveKey: { control: "text" },
         defaultCollapsed: { control: "boolean" },
+        defaultAllExpanded: { control: "boolean" },
     },
 } satisfies Meta<typeof GlobalNav>;
 
@@ -53,9 +61,10 @@ export const Collapsed: Story = {
     ),
 };
 
-/** The bare nav, no page frame — useful for inspecting spacing and states. */
-export const NavOnly: Story = {
+/** The bare nav with every section expanded — shows all menu items at once. */
+export const AllMenuItems: Story = {
     args: {
         defaultActiveKey: "key metrics",
+        defaultAllExpanded: true,
     },
 };

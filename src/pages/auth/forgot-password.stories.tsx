@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ForgotPasswordPage } from "./forgot-password";
 
 const meta = {
-    title: "Log in / Sign up/Forgot Password",
+    title: "Account Login/Forgot Password",
     component: ForgotPasswordPage,
     tags: ["autodocs"],
     parameters: {

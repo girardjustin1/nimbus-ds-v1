@@ -24,7 +24,7 @@ export const VerifyEmailPage = () => {
                 <div className="flex flex-col items-center gap-6 text-center">
                     <NimbusLogo className="h-8" />
 
-                    <FeaturedIcon icon={Mail01} color="brand" theme="light" size="xl" />
+                    <FeaturedIcon icon={Mail01} color="gray" theme="modern" size="xl" />
 
                     <div className="flex flex-col gap-2">
                         <h1 className="text-display-xs font-semibold text-primary">Check your email</h1>

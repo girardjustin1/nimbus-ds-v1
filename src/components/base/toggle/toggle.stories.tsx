@@ -6,7 +6,7 @@ import { Toggle } from "@/components/base/toggle/toggle";
  * The selected track uses the Nimbus brand-solid (pink) token.
  */
 const meta = {
-    title: "Components/Toggle",
+    title: "Base Components/Toggle",
     component: Toggle,
     parameters: { layout: "centered" },
     tags: ["autodocs"],

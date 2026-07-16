@@ -26,3 +26,8 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Design-source screen exports (Figma PNGs) — kept local, not versioned
+reference/screens/
+reference/screens - batch 2/
+reference/screens - batch 3/

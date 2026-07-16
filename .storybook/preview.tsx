@@ -10,15 +10,19 @@ const preview: Preview = {
             storySort: {
                 method: "alphabetical",
                 order: [
+                    // 0) Welcome / overview page (always first)
+                    "Introduction",
                     // 1) Styles / foundations
                     "Styles",
                     ["Color", "Typography", "Icons", "Elevation", "Shape", "Logos"],
                     // 2) Base components (flat — no sub-folders)
-                    "Components",
-                    // 3) Application UI (complex components)
+                    "Base Components",
+                    // 3) Application UI (complex components) — nav first
                     "Application UI",
+                    ["App Navigation - Sidebar", "*"],
                     // 4) Auth page templates
-                    "Log in / Sign up",
+                    "Account Login",
+                    ["Sign up", "Log in", "Forgot Password", "Verify Email"],
                     // 5) App Screens (always last)
                     "App Screens",
                     "*",

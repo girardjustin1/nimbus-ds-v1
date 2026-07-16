@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { VerifyEmailPage } from "./verify-email";
 
 const meta = {
-    title: "Log in / Sign up/Verify Email",
+    title: "Account Login/Verify Email",
     component: VerifyEmailPage,
     tags: ["autodocs"],
     parameters: {

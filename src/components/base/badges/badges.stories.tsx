@@ -6,7 +6,7 @@ import { Badge } from "@/components/base/badges/badges";
  * Category tags / labels used throughout the blog UI (article categories, etc.).
  */
 const meta = {
-    title: "Components/Badges",
+    title: "Base Components/Badges",
     component: Badge,
     parameters: { layout: "centered" },
     tags: ["autodocs"],
