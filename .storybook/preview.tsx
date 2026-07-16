@@ -10,12 +10,13 @@ const preview: Preview = {
             storySort: {
                 method: "alphabetical",
                 order: [
-                    "Overview",
-                    "Foundations",
-                    ["Colors", "Typography", "Icons", "Elevation", "Shape", "Logos"],
-                    "Base Components",
-                    "Application",
-                    ["Navigation", "*"],
+                    // 1) Styles / foundations
+                    "Styles",
+                    ["Color", "Typography", "Icons", "Elevation", "Shape", "Logos"],
+                    // 2) Components
+                    "Components",
+                    ["Body", "Navigation", "Breadcrumbs"],
+                    // 3) App Screens (always last)
                     "App Screens",
                     "*",
                 ],
