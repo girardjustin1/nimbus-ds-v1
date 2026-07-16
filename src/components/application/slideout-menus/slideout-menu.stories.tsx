@@ -36,7 +36,7 @@ export const Default: Story = {
                     {({ close }) => (
                         <>
                             <SlideoutMenu.Header onClose={close}>
-                                <FeaturedIcon icon={Settings01} color="brand" theme="light" size="lg" />
+                                <FeaturedIcon icon={Settings01} color="gray" theme="modern" size="lg" />
                                 <div className="mt-4 flex flex-col gap-1">
                                     <h2 className="text-lg font-semibold text-primary">Workspace settings</h2>
                                     <p className="text-sm text-tertiary">Update your workspace details. Changes apply to every member on your team.</p>
@@ -77,7 +77,7 @@ export const ProfilePanel: Story = {
                     {({ close }) => (
                         <>
                             <SlideoutMenu.Header onClose={close}>
-                                <FeaturedIcon icon={User01} color="brand" theme="light" size="lg" />
+                                <FeaturedIcon icon={User01} color="gray" theme="modern" size="lg" />
                                 <div className="mt-4 flex flex-col gap-1">
                                     <h2 className="text-lg font-semibold text-primary">Edit profile</h2>
                                     <p className="text-sm text-tertiary">Manage how your profile appears to teammates and collaborators.</p>
