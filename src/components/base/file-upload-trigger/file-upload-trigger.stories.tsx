@@ -5,7 +5,7 @@ import { Button } from "@/components/base/buttons/button";
 import { FileTrigger } from "@/components/base/file-upload-trigger/file-upload-trigger";
 
 const meta = {
-    title: "Components/File Upload",
+    title: "Base Components/File Upload",
     component: FileTrigger,
     parameters: { layout: "padded" },
     tags: ["autodocs"],

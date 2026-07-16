@@ -14,7 +14,7 @@ const preview: Preview = {
                     "Styles",
                     ["Color", "Typography", "Icons", "Elevation", "Shape", "Logos"],
                     // 2) Base components (flat — no sub-folders)
-                    "Components",
+                    "Base Components",
                     // 3) Application UI (complex components) — nav first
                     "Application UI",
                     ["App Navigation - Sidebar", "*"],

@@ -3,7 +3,7 @@ import { Button } from "@/components/base/buttons/button";
 import { Tooltip } from "@/components/base/tooltip/tooltip";
 
 const meta = {
-    title: "Components/Tooltip",
+    title: "Base Components/Tooltip",
     component: Tooltip,
     parameters: { layout: "centered" },
     tags: ["autodocs"],

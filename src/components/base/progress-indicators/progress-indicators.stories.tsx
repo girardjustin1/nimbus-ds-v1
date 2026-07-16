@@ -3,7 +3,7 @@ import { ProgressBar } from "@/components/base/progress-indicators/progress-indi
 import { ProgressBarCircle, ProgressBarHalfCircle } from "@/components/base/progress-indicators/progress-circles";
 
 const meta = {
-    title: "Components/Progress Indicators",
+    title: "Base Components/Progress Indicators",
     component: ProgressBar,
     parameters: { layout: "centered" },
     tags: ["autodocs"],

@@ -4,7 +4,7 @@ import { Button } from "@/components/base/buttons/button";
 import { Dropdown } from "@/components/base/dropdown/dropdown";
 
 const meta = {
-    title: "Components/Dropdown",
+    title: "Base Components/Dropdown",
     component: Dropdown.Root,
     parameters: { layout: "centered" },
     tags: ["autodocs"],
