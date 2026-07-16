@@ -19,7 +19,7 @@ const preview: Preview = {
                     "Application UI",
                     ["App Navigation - Sidebar", "*"],
                     // 4) Auth page templates
-                    "Log in / Sign up",
+                    "Account Login",
                     // 5) App Screens (always last)
                     "App Screens",
                     "*",
