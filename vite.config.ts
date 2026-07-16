@@ -16,6 +16,20 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src")
     }
   },
+  // Pre-bundle the CommonJS deps pulled in by @storybook/addon-vitest's setup
+  // (via @testing-library) so their named/default exports resolve as proper ESM
+  // in the browser test environment.
+  optimizeDeps: {
+    include: [
+      "aria-query",
+      "lz-string",
+      "dom-accessibility-api",
+      "@testing-library/dom",
+      "@testing-library/jest-dom",
+      "@testing-library/user-event",
+      "chai"
+    ]
+  },
   test: {
     projects: [{
       extends: true,
