@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///Users/girardjustin/Downloads/nimbus-nav_20.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nimbus — Global Nav</title>
+<style>
+  /* Nimbus Global Nav — expanded + collapsed
+     Design tokens from Figma nodes 142:21470 and 142:21630 */
+  :root {
+    --bg-primary-solid: #0a0d12;
+    --fg-white: #ffffff;
+    --fg-quaternary: #a4a7ae;
+    --utility-gray-600: #535862;
+    --border-secondary: #e9eaeb;
+    --border-brand-alt: #37b6b7;
+
+    --font-body: "Proxima Nova", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-size-md: 15px;
+    --font-size-sm: 13px;
+    --line-height-md: 24px;
+    --line-height-sm: 20px;
+    --font-weight-semibold: 600;
+
+    --spacing-xxs: 2px;
+    --spacing-xs: 4px;
+    --spacing-md: 8px;
+    --spacing-lg: 12px;
+    --spacing-xl: 16px;
+    --spacing-3xl: 24px;
+
+    --nav-width-expanded: 280px;
+    --nav-width-collapsed: 64px;
+    --active-bar-w: 8px;
+
+    --transition-nav: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    font-family: var(--font-body);
+    color: #111;
+    background: #f6f7f9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body { display: flex; min-height: 100vh; }
+
+  .global-nav {
+    width: var(--nav-width-expanded);
+    flex: 0 0 var(--nav-width-expanded);
+    /* Stick to viewport height so the middle can scroll independently */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: var(--bg-primary-solid);
+    border-right: 1px solid var(--border-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: var(--fg-quaternary);
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+    font-weight: var(--font-weight-semibold);
+    user-select: none;
+    transition: width var(--transition-nav), flex-basis var(--transition-nav);
+  }
+
+  /* Scrollable middle region that holds all the sections */
+  .nav-scroll {
+    flex: 1 1 auto;
+    min-height: 0;       /* critical: allows child overflow to kick in inside flex */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Thin dark scrollbar so it blends in */
+    scrollbar-width: thin;
+    scrollbar-color: var(--utility-gray-600) transparent;
+  }
+  .nav-scroll::-webkit-scrollbar { width: 6px; }
+  .nav-scroll::-webkit-scrollbar-track { background: transparent; }
+  .nav-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--utility-gray-600);
+    border-radius: 3px;
+  }
+
+  /* Logo + toggle */
+  .nav-logo {
+    flex: 0 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) 0;
+    width: 100%;
+  }
+  .nav-logo__wordmark { display: block; width: 104px; height: auto; }
+  .nav-logo__mono     { display: none;  width: 32px;  height: 32px; }
+
+  .nav-toggle {
+    position: absolute;
+    top: 24px;
+    right: -10px;
+    width: 20px; height: 20px;
+    border-radius: 9999px;
+    border: 1px solid var(--utility-gray-600);
+    background: var(--bg-primary-solid);
+    color: var(--fg-white);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 120ms ease, background 120ms ease;
+    z-index: 2;
+  }
+  .nav-toggle:hover { border-color: var(--fg-quaternary); background: #161a22; }
+  .nav-toggle:focus-visible { outline: 2px solid var(--border-brand-alt); outline-offset: 2px; }
+  .nav-toggle svg { width: 10px; height: 10px; transition: transform var(--transition-nav); }
+
+  /* Sections */
+  .nav-section {
+    display: flex; flex-direction: column; align-items: stretch;
+    padding: var(--spacing-xl) 0;
+    border-bottom: 1px solid var(--utility-gray-600);
+  }
+  .nav-section:first-of-type { padding-top: var(--spacing-lg); padding-bottom: var(--spacing-lg); }
+
+  .nav-heading {
+    /* Button styling */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: none;
+    border: 0;
+    /* Label aligns with icon column (24px from nav edge).
+       Chevron sits 8px + 12px = 20px to the left of the label, at 4px from the edge. */
+    padding: 0 var(--spacing-3xl) 0 4px;
+    margin: 0 0 var(--spacing-xxs);
+    color: var(--fg-white);
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+    font-weight: var(--font-weight-semibold);
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 120ms ease;
+  }
+  .nav-heading:hover { color: var(--fg-white); opacity: 0.85; }
+  .nav-heading:focus-visible {
+    outline: 2px solid var(--border-brand-alt);
+    outline-offset: -2px;
+  }
+  .nav-heading__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    order: 2; /* after chevron */
+  }
+  .nav-heading__chevron {
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    color: var(--fg-quaternary);
+    order: 1; /* before label */
+    transition: transform 180ms ease, color 120ms ease;
+  }
+  /* Point right when closed, down when open */
+  .nav-section[data-open="true"]  .nav-heading__chevron { transform: rotate(90deg); }
+  .nav-section[data-open="false"] .nav-heading__chevron { transform: rotate(0deg); }
+  .nav-heading:hover .nav-heading__chevron { color: var(--fg-white); }
+
+  /* Static variant: non-collapsible (e.g. Reporting).
+     Aligns label to the icon column (24px from nav edge). */
+  .nav-heading--static {
+    cursor: default;
+    padding-left: var(--spacing-3xl);
+  }
+  .nav-heading--static:hover { opacity: 1; }
+
+  /* Hide the list when section is closed */
+  .nav-section[data-open="false"] .nav-list { display: none; }
+
+  .nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+
+  .nav-item {
+    display: flex; align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-3xl);
+    border-left: var(--active-bar-w) solid transparent;
+    padding-left: calc(var(--spacing-3xl) - var(--active-bar-w));
+    color: var(--fg-quaternary);
+    text-decoration: none;
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+    font-weight: var(--font-weight-semibold);
+    transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    cursor: pointer;
+    white-space: nowrap; overflow: hidden;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.04); color: var(--fg-white); }
+  .nav-item:hover .nav-icon { color: var(--fg-white); }
+  .nav-item:focus-visible { outline: 2px solid var(--border-brand-alt); outline-offset: -2px; color: var(--fg-white); }
+  .nav-item.is-active { border-left-color: var(--border-brand-alt); color: var(--fg-white); background: rgba(55,182,183,0.06); }
+  .nav-item.is-active .nav-icon { color: var(--fg-white); }
+
+  .nav-icon {
+    flex: 0 0 24px; width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--fg-quaternary);
+  }
+  .nav-icon svg { width: 24px; height: 24px; display: block; }
+  .nav-label { white-space: nowrap; }
+
+  /* ---------- Item badges (NEW / PRO) ---------- */
+  /* All labels on item rows with icons share a minimum width equal to the
+     longest one ("performance insights" ~153px) so badges line up in a
+     consistent column instead of hugging the right edge. */
+  .nav-badge {
+    margin-left: 8px;       /* 8px gap after the label column */
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .nav-badge svg { display: block; }
+
+  /* Give labels on badge-carrying items a fixed minimum width.
+     Uses the item-with-icon rows (Reporting section) so headings without
+     icons aren't affected. */
+  .nav-item:has(.nav-badge) .nav-label {
+    min-width: 155px;       /* 8px breathing room past the 152.5px measured label */
+    flex: 0 0 auto;
+  }
+
+  /* Trim right padding so badges have room */
+  .nav-item:has(.nav-badge) { padding-right: var(--spacing-md); }
+
+  /* Hide badges when collapsed */
+  .global-nav.is-collapsed .nav-badge { display: none; }
+
+  .nav-footer {
+    flex: 0 0 auto;
+    padding: var(--spacing-xl) var(--spacing-3xl);
+    display: flex; flex-direction: column; gap: var(--spacing-xxs);
+    color: var(--fg-quaternary);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
+    font-weight: var(--font-weight-semibold);
+    border-top: 1px solid var(--utility-gray-600);
+    white-space: nowrap; overflow: hidden;
+  }
+  .nav-footer a { color: inherit; text-decoration: none; }
+  .nav-footer a:hover { color: var(--fg-white); }
+  .nav-footer__copy { opacity: 0.85; }
+
+  /* === COLLAPSED === */
+  .global-nav.is-collapsed {
+    width: var(--nav-width-collapsed);
+    flex: 0 0 var(--nav-width-collapsed);
+  }
+  .global-nav.is-collapsed .nav-logo__wordmark { display: none; }
+  .global-nav.is-collapsed .nav-logo__mono     { display: block; }
+  .global-nav.is-collapsed .nav-toggle svg     { transform: rotate(180deg); }
+
+  .global-nav.is-collapsed .nav-label,
+  .global-nav.is-collapsed .nav-heading,
+  .global-nav.is-collapsed .nav-footer,
+  .global-nav.is-collapsed .nav-item--noicon { display: none; }
+
+  .global-nav.is-collapsed .nav-section {
+    padding: var(--spacing-lg) 0;
+    border-bottom: none;
+  }
+  .global-nav.is-collapsed .nav-section:first-of-type { padding-top: var(--spacing-lg); }
+
+  /* In collapsed mode, the 8px transparent left-border stays so the active
+     teal bar still works. Add 8px right padding to visually re-center icons
+     on the 64px rail. */
+  .global-nav.is-collapsed .nav-item {
+    padding: var(--spacing-xs) var(--active-bar-w) var(--spacing-xs) 0;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+  }
+  .global-nav.is-collapsed .nav-item:hover::after {
+    content: attr(data-key);
+    position: absolute;
+    left: calc(100% + 8px); top: 50%;
+    transform: translateY(-50%);
+    background: #1f232b;
+    color: var(--fg-white);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: capitalize;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Page preview */
+  .page { flex: 1; display: flex; align-items: flex-start; justify-content: flex-start; padding: 48px; }
+  .page-inner { max-width: 720px; }
+  .page-title { margin: 0 0 8px; font-size: 28px; font-weight: 700; color: #111827; text-transform: capitalize; }
+  .page-sub { margin: 0 0 24px; color: #6b7280; font-size: 15px; line-height: 24px; }
+  .page-selected { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; color: #374151; }
+  .page-selected code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: #f3f4f6; padding: 2px 6px; border-radius: 4px; color: #0a0d12; }
+
+  @media (max-width: 720px) {
+    body { flex-direction: column; }
+    .global-nav, .global-nav.is-collapsed { width: 100%; flex: 0 0 auto; min-height: auto; }
+    .page { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+  <aside class="global-nav" aria-label="Primary" id="globalNav">
+    <div class="nav-logo">
+      <!-- Wordmark (expanded) -->
+      <svg class="nav-logo__wordmark" width="104" height="33" viewBox="0 0 104 33" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Nimbus">
+        <path d="M14.9335 7.78699C15.3036 7.75712 15.671 7.87183 15.9541 8.10633C16.2374 8.34067 16.4137 8.67556 16.4443 9.03699L17.7431 24.4198C17.7737 24.7812 17.6559 25.1394 17.416 25.4159C17.1759 25.6923 16.8335 25.8646 16.4638 25.8944L13.7949 26.1093C13.3485 26.1455 12.9141 25.9719 12.622 25.6425L6.28218 18.4911L6.85738 25.2968C6.88776 25.6582 6.76936 26.0162 6.52925 26.2929C6.28934 26.5693 5.94691 26.7415 5.5771 26.7714L2.81441 26.994C2.77522 26.9971 2.73578 26.9989 2.69722 26.9989C1.97642 26.9988 1.3638 26.4582 1.30367 25.744L0.00483777 10.3612C-0.0588557 9.60882 0.513814 8.94884 1.28413 8.8866L4.11812 8.65809C4.56322 8.62268 4.99668 8.79449 5.28902 9.12195L11.4423 16.0145L10.8906 9.48426C10.8271 8.73176 11.4006 8.07173 12.1709 8.00965L14.9335 7.78699ZM88.6308 13.2138C88.9243 9.72584 92.1512 7.44688 96.3046 7.79578C99.0646 8.02749 101.378 9.12604 102.993 10.9725C103.464 11.5106 103.454 12.3162 102.972 12.8436L101.209 14.7714C100.936 15.0697 100.552 15.2368 100.143 15.2284C99.7381 15.2205 99.3567 15.0389 99.0957 14.7304C98.2732 13.7584 97.0403 13.1578 95.625 13.0389C94.9366 12.9815 94.5952 13.1392 94.4804 13.2098C93.7959 13.6215 94.252 14.3315 94.2343 14.4169C94.5422 14.7323 95.8749 15.1938 96.6425 15.4579L96.664 15.4657C98.018 15.9335 99.5511 16.4623 100.786 17.4169C102.367 18.6386 103.082 19.2687 102.913 21.2831C102.764 23.0538 101.946 24.5842 100.611 25.5907C99.3883 26.5129 97.8129 26.9772 95.9199 26.9774C95.5773 26.9774 95.2245 26.9618 94.8613 26.9315C91.7982 26.6744 89.307 25.437 87.6572 23.3524C87.2398 22.8251 87.2551 22.0762 87.6933 21.5663L89.415 19.5634C89.6826 19.2523 90.0725 19.0741 90.4824 19.0741C90.4913 19.0741 90.5005 19.0739 90.5097 19.0741C90.9296 19.0823 91.324 19.2775 91.5849 19.6063C92.1404 20.3065 93.3779 21.5067 95.4228 21.6786C96.3735 21.7585 96.833 21.5581 97.0214 21.4315C97.1729 21.3296 97.2527 21.212 97.2646 21.0721C97.2667 21.0464 97.2654 21.0311 97.2646 21.0272C97.2646 21.0272 97.1868 20.8711 96.7021 20.619C96.2132 20.3647 95.5407 20.1291 94.8291 19.8798L94.7988 19.869C93.4621 19.4168 91.9478 18.9034 90.7382 17.9852C89.1738 16.7971 88.4643 15.1918 88.6308 13.2138ZM73.8261 6.58875C74.2052 6.60834 74.5608 6.77248 74.8144 7.04383C75.0678 7.3155 75.1982 7.67272 75.1777 8.03699L74.6572 17.3427C74.6229 17.9545 74.6915 18.8068 75.208 19.3944C75.6242 19.8679 76.2992 20.1322 77.2138 20.1796C78.1151 20.2261 78.8082 20.0338 79.2714 19.6073C79.85 19.0749 80.0128 18.2339 80.0468 17.622L80.5673 8.31629C80.6098 7.55722 81.2837 6.97492 82.0732 7.01551L84.9267 7.16395C85.3054 7.18373 85.6614 7.34651 85.915 7.61805C86.1686 7.88962 86.2988 8.24769 86.2783 8.61219L85.7548 17.9872C85.625 20.3067 84.7737 22.214 83.2929 23.5028C81.8704 24.7411 79.9697 25.3671 77.6367 25.3671C77.4039 25.3671 77.1663 25.3601 76.9248 25.3475C74.2952 25.2115 72.1698 24.3482 70.7793 22.8505C69.448 21.4168 68.8127 19.4426 68.9414 17.1405L69.4668 7.74207C69.5094 6.98299 70.1826 6.40111 70.9726 6.44129L73.8261 6.58875ZM23.5585 6.44227C23.9239 6.41963 24.2808 6.54694 24.5537 6.79578C24.8264 7.04454 24.9919 7.3945 25.0136 7.76844L25.9365 23.6991C25.9816 24.4783 25.4038 25.1477 24.6455 25.1942L21.9257 25.3602C21.8986 25.3619 21.8709 25.3632 21.8437 25.3632C21.5083 25.3632 21.1829 25.2369 20.9306 25.0067C20.6578 24.758 20.4926 24.408 20.4707 24.0341L19.5478 8.1034C19.5025 7.32408 20.0803 6.65462 20.8388 6.60828L23.5585 6.44227ZM46.6621 5.42957C47.0394 5.41903 47.4085 5.54899 47.6845 5.79481C47.9603 6.04037 48.1219 6.38054 48.1337 6.73914L48.6425 22.0184C48.6674 22.7657 48.0484 23.3904 47.2607 23.4139L44.4355 23.4989C44.0571 23.5102 43.6898 23.3782 43.414 23.1327C43.1382 22.8868 42.9758 22.5471 42.9638 22.1884L42.8134 17.6532L40.7753 22.7723C40.5714 23.2843 40.062 23.6301 39.4853 23.6473L38.2783 23.6825C37.7048 23.6987 37.1685 23.3849 36.9316 22.8846L34.5839 17.9315L34.7343 22.4345C34.7593 23.1818 34.1403 23.8074 33.3525 23.8309L30.5273 23.9149C30.5123 23.9153 30.4974 23.9159 30.4824 23.9159C30.1203 23.9159 29.7707 23.7848 29.5058 23.5487C29.2298 23.3031 29.0676 22.9631 29.0556 22.6044L28.5478 7.32606C28.5226 6.57879 29.1409 5.95408 29.9287 5.93055L33.913 5.81043C34.4918 5.79362 35.0226 6.10903 35.2597 6.60926L38.5488 13.5468L41.3886 6.42274C41.5927 5.91081 42.102 5.56614 42.6787 5.54871L46.6621 5.42957ZM53.2832 5.32801L61.04 5.5868C62.7761 5.6449 64.2428 6.21943 65.2802 7.24988C66.2772 8.24007 66.7981 9.59175 66.747 11.0546C66.7 12.4044 66.153 13.6108 65.2753 14.4755C66.2556 15.4731 66.8513 16.8812 66.7998 18.3593C66.7456 19.9101 66.1267 21.2872 65.0566 22.2372C63.9706 23.2017 62.4891 23.6935 60.7646 23.6639C60.7177 23.6631 60.6705 23.6626 60.623 23.661L52.6533 23.3944C51.8816 23.3687 51.2776 22.739 51.3037 21.9882L51.8388 6.64051C51.8515 6.28016 52.0107 5.93949 52.2812 5.69324C52.5466 5.45247 52.8976 5.32091 53.2597 5.32703C53.2674 5.32716 53.2755 5.32768 53.2832 5.32801ZM56.5468 19.4559L59.6445 19.6063C60.0124 19.6255 60.3174 19.4905 60.4746 19.2391C60.6005 19.0373 60.6711 18.6757 60.6845 18.1649C60.6924 17.8725 60.6708 17.4619 60.5224 17.1669C60.3703 16.8649 60.086 16.6883 59.7226 16.6708L56.625 16.5204L56.5468 19.4559ZM56.5556 12.3602L59.7773 12.5282C60.6589 12.5765 60.6794 11.6418 60.6923 11.1415C60.7008 10.8139 60.6843 10.3632 60.5556 10.078C60.4269 9.79291 60.1766 9.62712 59.8515 9.61024L56.6308 9.44031L56.5556 12.3602Z" fill="#ffffff"></path>
+      </svg>
+
+      <!-- Monogram (collapsed) -->
+      <svg class="nav-logo__mono" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Nimbus">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.5701 7.64625C23.5395 7.28482 23.3635 6.9502 23.0802 6.71586C22.7971 6.48131 22.4301 6.36629 22.06 6.39617L19.297 6.61885C18.5267 6.68086 17.9535 7.3411 18.017 8.09365L18.5688 14.6244L12.4146 7.7316C12.1223 7.40414 11.6896 7.23202 11.2445 7.26742L8.41059 7.49583C7.64004 7.55784 7.06711 8.21808 7.13081 8.97063L8.43008 24.3537C8.49023 25.068 9.10256 25.6085 9.82344 25.6085C9.862 25.6085 9.90077 25.6068 9.93996 25.6038L12.703 25.3813C13.0729 25.3514 13.4157 25.1793 13.6557 24.9028C13.8958 24.6261 14.0134 24.2677 13.983 23.9063L13.4082 17.1004L19.7478 24.2516C20.0399 24.5813 20.4743 24.7552 20.9209 24.719L23.5894 24.5041C23.9593 24.4744 24.3021 24.3021 24.5423 24.0256C24.7822 23.7491 24.9 23.3908 24.8694 23.0293L23.5701 7.64625Z" fill="#ffffff"></path>
+      </svg>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Collapse navigation" aria-expanded="true" aria-controls="globalNav">
+        <!-- chevron-right, matched to Figma asset (node 142:21635) -->
+        <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 2.5 L3.5 5 L6 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="nav-scroll">
+    <nav class="nav-section nav-section--static" data-open="true" aria-labelledby="sec-reporting">
+      <div class="nav-heading nav-heading--static" id="sec-reporting">
+        <span class="nav-heading__label">Reporting</span>
+      </div>
+      <ul class="nav-list" id="list-reporting">
+        <li><a class="nav-item" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="key metrics">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.3725 11.4993C19.509 11.4993 19.6484 11.6488 19.6484 11.8311V19.1982C19.6484 19.3675 19.5207 19.4993 19.3725 19.4993H13.423C13.2685 19.4993 13.1484 19.3751 13.1484 19.1982V11.8311C13.1484 11.6489 13.2877 11.4993 13.423 11.4993H19.3725ZM10.6484 15.8311V19.1982C10.6484 19.3675 10.5207 19.4993 10.3725 19.4993H4.42305C4.2685 19.4993 4.14841 19.3751 4.14841 19.1982V15.8311C4.14841 15.6489 4.28771 15.4993 4.42305 15.4993H10.3725C10.509 15.4993 10.6484 15.6488 10.6484 15.8311ZM10.3725 4.4993C10.509 4.4993 10.6484 4.6488 10.6484 4.83112V12.1982C10.6484 12.3675 10.5207 12.4993 10.3725 12.4993H4.42305C4.2685 12.4993 4.14841 12.3751 4.14841 12.1982V4.83112C4.14841 4.6489 4.28771 4.4993 4.42305 4.4993H10.3725ZM19.3725 4.4993C19.509 4.4993 19.6484 4.6488 19.6484 4.83112V8.19816C19.6484 8.36745 19.5207 8.4993 19.3725 8.4993H13.423C13.2685 8.4993 13.1484 8.37508 13.1484 8.19816V4.83112C13.1484 4.6489 13.2877 4.4993 13.423 4.4993H19.3725Z" fill="currentColor" stroke="currentColor"></path></svg></span>
+          <span class="nav-label">key metrics</span>
+        </a></li>
+        <li><a class="nav-item" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="realtime dashboard">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.37128 8.40906H4.42227C4.00254 8.40906 3.64709 8.78951 3.64709 9.24088V19.1988C3.64709 19.6481 3.98776 20 4.42227 20H7.37128C7.79936 20 8.14709 19.6406 8.14709 19.1988V9.24088C8.14645 8.78951 7.79165 8.40906 7.37128 8.40906Z" fill="currentColor"></path><path d="M13.3718 11.8188H10.423C10.0033 11.8188 9.64775 12.2 9.64775 12.6507V19.1988C9.64775 19.6482 9.98847 20 10.423 20H13.3718C13.8 20 14.1478 19.6407 14.1478 19.1988V12.65C14.1478 12.1993 13.7929 11.8188 13.3718 11.8188Z" fill="currentColor"></path><path d="M19.3725 4.9993H16.423C16.0033 4.9993 15.6484 5.38043 15.6484 5.83112V19.1982C15.6484 19.6475 15.9885 19.9993 16.423 19.9993H19.3725C19.8006 19.9993 20.1484 19.64 20.1484 19.1982V5.83112C20.1484 5.38043 19.7936 4.9993 19.3725 4.9993Z" fill="currentColor"></path></svg></span>
+          <span class="nav-label">realtime dashboard</span>
+        </a></li>
+        <li><a class="nav-item is-active" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="performance insights" aria-current="page">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 15C6.32843 15 7 14.3284 7 13.5C7 12.6716 6.32843 12 5.5 12C4.67157 12 4 12.6716 4 13.5C4 14.3284 4.67157 15 5.5 15Z" fill="currentColor"></path><path d="M9.5 8C10.3284 8 11 7.32843 11 6.5C11 5.67157 10.3284 5 9.5 5C8.67157 5 8 5.67157 8 6.5C8 7.32843 8.67157 8 9.5 8Z" fill="currentColor"></path><path d="M13.5 20C14.3284 20 15 19.3284 15 18.5C15 17.6716 14.3284 17 13.5 17C12.6716 17 12 17.6716 12 18.5C12 19.3284 12.6716 20 13.5 20Z" fill="currentColor"></path><path d="M18.5 12C19.3284 12 20 11.3284 20 10.5C20 9.67157 19.3284 9 18.5 9C17.6716 9 17 9.67157 17 10.5C17 11.3284 17.6716 12 18.5 12Z" fill="currentColor"></path><path d="M5.5 13.5L9.5 6.5L13.6479 18.5L18.5 10.5" stroke="currentColor"></path></svg></span>
+          <span class="nav-label">performance insights</span>
+          <span class="nav-badge" aria-label="New"><svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="16" rx="4" fill="#DA6EA3"></rect><path d="M9.94012 11H8.92312L5.79112 6.626V11H4.73812V4.997H5.81812L8.88712 9.254V4.997H9.94012V11ZM15.3287 11H11.2157V4.997H15.3287V5.924H12.2687V7.481H15.2657V8.408H12.2687V10.073H15.3287V11ZM22.125 11H21L19.83 6.572L18.669 11H17.544L15.825 4.997H17.004L18.174 9.623L19.416 4.997H20.253L21.495 9.623L22.656 4.997H23.835L22.125 11Z" fill="white"></path></svg></span>
+        </a></li>
+        <li><a class="nav-item" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="buyer breakdown">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.7546 11.1429C18.5797 11.0494 18.5563 11.0394 12.0857 13.0065L13.712 6.4126C13.7347 6.32194 13.7198 6.2249 13.6709 6.14485C13.6227 6.06481 13.5434 6.00673 13.4527 5.98406C9.4202 4.99027 5.3317 7.46094 4.33649 11.4928C3.34129 15.5253 5.81266 19.6159 9.84449 20.6104C10.4473 20.7592 11.0565 20.8321 11.6621 20.8321C13.0178 20.8321 14.3523 20.4631 15.543 19.7441C17.2657 18.7036 18.4791 17.0546 18.9607 15.1017C19.2639 13.8735 19.2519 12.5808 18.9275 11.3624C18.9034 11.2689 18.8396 11.1889 18.7546 11.1429Z" fill="currentColor"></path><path d="M20.7656 8.60772C20.1203 6.38568 18.329 4.65947 16.0878 4.10131C15.8944 4.05456 15.7053 4.16931 15.6585 4.35985L14.1711 10.3318C14.1406 10.4543 14.1781 10.584 14.2688 10.6718C14.3361 10.7363 14.4246 10.771 14.5153 10.771C14.5479 10.771 14.5812 10.7667 14.613 10.7568L20.5283 9.05964C20.6303 9.0306 20.7132 8.95835 20.755 8.86202C20.789 8.78127 20.7933 8.68989 20.7656 8.60772Z" fill="currentColor"></path></svg></span>
+          <span class="nav-label">buyer breakdown</span>
+          <span class="nav-badge" aria-label="Pro"><svg width="27" height="16" viewBox="0 0 27 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="27" height="16" rx="4" fill="#23A6A9"></rect><path d="M6.18761 11H5.13461V4.997H7.77161C9.03161 4.997 9.73361 5.861 9.73361 6.878C9.73361 7.895 9.02261 8.759 7.77161 8.759H6.18761V11ZM8.65361 6.878C8.65361 6.302 8.22161 5.924 7.62761 5.924H6.18761V7.832H7.62761C8.22161 7.832 8.65361 7.454 8.65361 6.878ZM15.2542 11H14.0392L12.7072 8.759H11.6632V11H10.6102V4.997H13.2472C14.4352 4.997 15.2092 5.771 15.2092 6.878C15.2092 7.949 14.5072 8.525 13.7872 8.642L15.2542 11ZM14.1292 6.878C14.1292 6.302 13.6972 5.924 13.1032 5.924H11.6632V7.832H13.1032C13.6972 7.832 14.1292 7.454 14.1292 6.878ZM15.9916 8.003C15.9916 6.212 17.2606 4.898 19.0606 4.898C20.8606 4.898 22.1296 6.212 22.1296 8.003C22.1296 9.794 20.8606 11.108 19.0606 11.108C17.2606 11.108 15.9916 9.794 15.9916 8.003ZM21.0496 8.003C21.0496 6.761 20.2666 5.834 19.0606 5.834C17.8456 5.834 17.0716 6.761 17.0716 8.003C17.0716 9.236 17.8456 10.172 19.0606 10.172C20.2666 10.172 21.0496 9.236 21.0496 8.003Z" fill="white"></path></svg></span>
+        </a></li>
+        <li><a class="nav-item" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="advanced reporting">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 6H18C19.1046 6 20 6.89543 20 8V9H5V8C5 6.89543 5.89543 6 7 6Z" fill="currentColor"></path><path d="M20 13H5V14H20V13Z" fill="currentColor"></path><path d="M13 8H12V19H13V8Z" fill="currentColor"></path><path d="M18 6H7C5.89543 6 5 6.89543 5 8V17C5 18.1046 5.89543 19 7 19H18C19.1046 19 20 18.1046 20 17V8C20 6.89543 19.1046 6 18 6Z" stroke="currentColor"></path></svg></span>
+          <span class="nav-label">advanced reporting</span>
+          <span class="nav-badge" aria-label="Pro"><svg width="27" height="16" viewBox="0 0 27 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="27" height="16" rx="4" fill="#23A6A9"></rect><path d="M6.18761 11H5.13461V4.997H7.77161C9.03161 4.997 9.73361 5.861 9.73361 6.878C9.73361 7.895 9.02261 8.759 7.77161 8.759H6.18761V11ZM8.65361 6.878C8.65361 6.302 8.22161 5.924 7.62761 5.924H6.18761V7.832H7.62761C8.22161 7.832 8.65361 7.454 8.65361 6.878ZM15.2542 11H14.0392L12.7072 8.759H11.6632V11H10.6102V4.997H13.2472C14.4352 4.997 15.2092 5.771 15.2092 6.878C15.2092 7.949 14.5072 8.525 13.7872 8.642L15.2542 11ZM14.1292 6.878C14.1292 6.302 13.6972 5.924 13.1032 5.924H11.6632V7.832H13.1032C13.6972 7.832 14.1292 7.454 14.1292 6.878ZM15.9916 8.003C15.9916 6.212 17.2606 4.898 19.0606 4.898C20.8606 4.898 22.1296 6.212 22.1296 8.003C22.1296 9.794 20.8606 11.108 19.0606 11.108C17.2606 11.108 15.9916 9.794 15.9916 8.003ZM21.0496 8.003C21.0496 6.761 20.2666 5.834 19.0606 5.834C17.8456 5.834 17.0716 6.761 17.0716 8.003C17.0716 9.236 17.8456 10.172 19.0606 10.172C20.2666 10.172 21.0496 9.236 21.0496 8.003Z" fill="white"></path></svg></span>
+        </a></li>
+        <li><a class="nav-item" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="nimbus benchmarks">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.9486 11.8189H7.99979C7.58 11.8189 7.2245 12.2 7.2245 12.6507V19.1989C7.2245 19.6482 7.56522 20 7.99979 20H10.9486C11.3767 20 11.7245 19.6407 11.7245 19.1989V12.65C11.7245 12.1993 11.3696 11.8189 10.9486 11.8189Z" fill="currentColor"></path><path d="M16.9486 5.5C17.0017 5.5 17.2245 5.93763 17.2245 6.52388V18.5311C17.2245 19.1017 17.0141 19.5 16.9486 19.5H13.9998C13.9277 19.5 13.7245 19.1151 13.7245 18.5311V6.52513C13.7245 5.9393 13.9479 5.5 13.9998 5.5H16.9486Z" stroke="currentColor"></path><path d="M3.9745 8.92389H20.9745" stroke="currentColor" stroke-linecap="square" stroke-dasharray="1 3"></path></svg></span>
+          <span class="nav-label">nimbus benchmarks</span>
+          <span class="nav-badge" aria-label="New"><svg width="28" height="16" viewBox="0 0 28 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="28" height="16" rx="4" fill="#DA6EA3"></rect><path d="M9.94012 11H8.92312L5.79112 6.626V11H4.73812V4.997H5.81812L8.88712 9.254V4.997H9.94012V11ZM15.3287 11H11.2157V4.997H15.3287V5.924H12.2687V7.481H15.2657V8.408H12.2687V10.073H15.3287V11ZM22.125 11H21L19.83 6.572L18.669 11H17.544L15.825 4.997H17.004L18.174 9.623L19.416 4.997H20.253L21.495 9.623L22.656 4.997H23.835L22.125 11Z" fill="white"></path></svg></span>
+        </a></li>
+      </ul>
+    </nav>
+
+    <!-- Transparent Publisher Exchange -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-tpe">
+      <button class="nav-heading" id="sec-tpe" type="button" aria-expanded="false" aria-controls="list-tpe">
+        <span class="nav-heading__label">Transparent Publisher Exchange</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-tpe">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="sold inventory"><span class="nav-label">sold inventory</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="purchased inventory"><span class="nav-label">purchased inventory</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Demand -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-demand">
+      <button class="nav-heading" id="sec-demand" type="button" aria-expanded="false" aria-controls="list-demand">
+        <span class="nav-heading__label">Demand</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-demand">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="manage active demand"><span class="nav-label">manage active demand</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="manage active n+ demand"><span class="nav-label">manage active n+ demand</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="n+ payments"><span class="nav-label">n+ payments</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Deal Activation System | DAS -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-das">
+      <button class="nav-heading" id="sec-das" type="button" aria-expanded="false" aria-controls="list-das">
+        <span class="nav-heading__label">Deal Activation System</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-das">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="manage assets"><span class="nav-label">manage assets</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="deal activation setup"><span class="nav-label">deal activation setup</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="manage campaigns"><span class="nav-label">manage campaigns</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- AdOps -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-adops">
+      <button class="nav-heading" id="sec-adops" type="button" aria-expanded="false" aria-controls="list-adops">
+        <span class="nav-heading__label">AdOps</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-adops">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="ad blocking"><span class="nav-label">ad blocking</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="floors"><span class="nav-label">floors</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="discrepancy reports"><span class="nav-label">discrepancy reports</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="activity"><span class="nav-label">activity</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- SDK & Docs -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-sdk">
+      <button class="nav-heading" id="sec-sdk" type="button" aria-expanded="false" aria-controls="list-sdk">
+        <span class="nav-heading__label">SDK &amp; Docs</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-sdk">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="SDKs"><span class="nav-label">SDKs</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="documentation"><span class="nav-label">documentation</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Finance -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-finance">
+      <button class="nav-heading" id="sec-finance" type="button" aria-expanded="false" aria-controls="list-finance">
+        <span class="nav-heading__label">Finance</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-finance">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="n+ payee registration"><span class="nav-label">n+ payee registration</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="n+ payment history"><span class="nav-label">n+ payment history</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="n+ invoice history"><span class="nav-label">n+ invoice history</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Settings -->
+    <nav class="nav-section" data-open="false" aria-labelledby="sec-settings">
+      <button class="nav-heading" id="sec-settings" type="button" aria-expanded="false" aria-controls="list-settings">
+        <span class="nav-heading__label">Settings</span>
+        <svg class="nav-heading__chevron" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4.5 3 L7.5 6 L4.5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </button>
+      <ul class="nav-list" id="list-settings">
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="profile"><span class="nav-label">profile</span></a></li>
+        <li><a class="nav-item nav-item--noicon" href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#" data-key="log out"><span class="nav-label">log out</span></a></li>
+      </ul>
+    </nav>
+    </div><!-- /.nav-scroll -->
+
+    <footer class="nav-footer">
+      <a href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#">End-User License Agreement</a>
+      <a href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#">Privacy Policy</a>
+      <a href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#">AdsByNimbus.com</a>
+      <a href="file:///Users/girardjustin/Downloads/nimbus-nav_20.html#">Learning Center</a>
+      <span class="nav-footer__copy">©2026</span>
+    </footer>
+  </aside>
+
+  <main class="page">
+    <div class="page-inner">
+      <h1 class="page-title">Performance insights</h1>
+      <p class="page-sub">Click the chevron on the edge of the nav to collapse/expand. Click any item to switch active.</p>
+      <div class="page-selected">Active: <code id="active-display">performance insights</code></div>
+    </div>
+  </main>
+
+<script>
+  (function () {
+    const nav     = document.getElementById("globalNav");
+    const toggle  = document.getElementById("navToggle");
+    const items   = document.querySelectorAll(".nav-item");
+    const display = document.getElementById("active-display");
+    const pageTitle = document.querySelector(".page-title");
+
+    function setCollapsed(collapsed) {
+      nav.classList.toggle("is-collapsed", collapsed);
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      toggle.setAttribute("aria-label", collapsed ? "Expand navigation" : "Collapse navigation");
+    }
+    toggle.addEventListener("click", () => setCollapsed(!nav.classList.contains("is-collapsed")));
+
+    // --- Section collapse/expand (skip static sections like Reporting) ---
+    document.querySelectorAll(".nav-section:not(.nav-section--static)").forEach((section) => {
+      const heading = section.querySelector(".nav-heading");
+      if (!heading) return;
+      heading.addEventListener("click", () => {
+        const nowOpen = section.getAttribute("data-open") !== "true";
+        section.setAttribute("data-open", String(nowOpen));
+        heading.setAttribute("aria-expanded", String(nowOpen));
+      });
+    });
+
+    function setActive(key) {
+      items.forEach((el) => {
+        const isMatch = el.dataset.key === key;
+        el.classList.toggle("is-active", isMatch);
+        if (isMatch) el.setAttribute("aria-current", "page");
+        else el.removeAttribute("aria-current");
+      });
+      if (display) display.textContent = key;
+      if (pageTitle) pageTitle.textContent = key;
+    }
+    items.forEach((el) => {
+      el.addEventListener("click", (e) => { e.preventDefault(); setActive(el.dataset.key); });
+    });
+  })();
+</script>
+
+
+</body></html>
