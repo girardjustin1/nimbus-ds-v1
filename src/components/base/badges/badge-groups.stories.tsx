@@ -3,10 +3,10 @@ import { BadgeGroup } from "@/components/base/badges/badge-groups";
 
 /**
  * Components → Badge Groups
- * Badge + label combos (e.g. announcement pills). brand = Nimbus teal.
+ * Badge + label combos (e.g. announcement pills). brand = Nimbus pink.
  */
 const meta = {
-    title: "Components/Body/Badge Groups",
+    title: "Components/Badge Groups",
     component: BadgeGroup,
     parameters: { layout: "centered" },
     tags: ["autodocs"],
