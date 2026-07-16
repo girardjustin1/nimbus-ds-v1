@@ -7,6 +7,14 @@ components, application patterns, and ready-to-use screen templates.
 Built with **React 19, TypeScript, Tailwind CSS v4, React Aria, Recharts,
 Storybook 10, and Vite.**
 
+## 📖 Live Storybook
+
+### 👉 **[girardjustin1.github.io/nimbus-ds-v1](https://girardjustin1.github.io/nimbus-ds-v1/)**
+
+The full, interactive library — styles, components, application patterns, and app
+screens — auto-deployed from `main`. Start on the **Introduction** page for a guided
+overview of everything inside.
+
 ## Core Purpose
 
 Nimbus gives designers and engineers one place to see and reuse the Nimbus
@@ -32,24 +40,39 @@ never drifts from the theme.
 
 ## What's Inside
 
-The Storybook library is organized top-to-bottom as:
+The Storybook library is organized top-to-bottom, matching the **Introduction**
+page in Storybook:
 
-**Styles** — color palette, typography, icons, elevation, shape, and logos.
+**Introduction** — a guided overview of the whole library (categories, components,
+and every screen).
 
-**Components** — the base building blocks: buttons, badges, avatars, checkbox,
-radio, toggle, inputs, textarea, select, multi-select, dropdown, tags, button
-groups, sliders, tooltips, progress indicators, file upload, and forms.
+**Styles** (6) — color palette, typography, icons, elevation, shape, and logos,
+rendered live from the Nimbus tokens.
 
-**Application UI** — richer patterns: application navigation (header + sidebar
-variants), the global navigation, breadcrumbs, data tables, tabs, modals,
-slideout menus, date pickers, pagination, charts, carousels, empty states,
-file upload, and loading indicators.
+**Base Components** (19) — the core building blocks: avatars, badges, badge groups,
+buttons, button group, checkbox, dropdown, file upload, form, input, multi select,
+progress indicators, radio buttons, select, slider, tags, textarea, toggle, and
+tooltip.
 
-**Log in / Sign up** — auth page templates: log in, sign up, email verification,
-and forgot password.
+**Application UI** (23) — richer composed patterns: app navigation (sidebar),
+alerts, breadcrumbs, carousel, charts, code snippet, command menu, date picker,
+dividers, empty state, file upload, filter bars, loading indicator, metrics,
+modal, notifications, pagination, pie charts, progress steps, radar charts,
+slideout menu, table, and tabs.
 
-**App Screens** — full product screens assembled from the system (e.g. the
-AdOps ad-blocking dashboard).
+**Account Login** (4) — auth page templates: sign up, log in, forgot password, and
+verify email.
+
+**App Screens** (17) — full Nimbus product screens assembled entirely from the
+system, each with multiple states where relevant:
+
+- **Reporting & metrics** — Key Metrics Dashboard, Performance Insights, Saved
+  Queries, Nimbus+ Reporting, Nimbus Benchmarks
+- **Payments & finance** — Nimbus+ Payments, Nimbus+ Payouts, Billing Setup, Add
+  DocuSign Contracts
+- **Demand & campaigns** — Manage Active Demand, Manage Assets, View All Campaigns,
+  Campaign Setup, DAS – Billing Rates
+- **AdOps & SDK** — Ad Blocking, Ad Blocking – Blocklists, SDK & Documentation
 
 ## Getting Started
 
@@ -76,11 +99,11 @@ Every push to `main` builds Storybook and deploys it to GitHub Pages:
 ```
 src/
 ├── components/
-│   ├── base/          # Buttons, badges, inputs, avatars, … (Components)
+│   ├── base/          # Buttons, badges, inputs, avatars, … (Base Components)
 │   ├── application/   # Tables, nav, modals, global-nav, … (Application UI)
 │   └── foundations/   # Colors, typography, icons, logos (Styles)
 ├── pages/
-│   ├── auth/          # Log in / Sign up templates
+│   ├── auth/          # Account Login templates (sign up / log in / …)
 │   └── app-screens/   # Full product screens
 ├── styles/            # theme.css (Nimbus tokens), globals, typography
 └── ...

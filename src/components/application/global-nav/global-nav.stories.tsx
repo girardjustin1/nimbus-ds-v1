@@ -17,6 +17,7 @@ const meta = {
     argTypes: {
         defaultActiveKey: { control: "text" },
         defaultCollapsed: { control: "boolean" },
+        defaultAllExpanded: { control: "boolean" },
     },
 } satisfies Meta<typeof GlobalNav>;
 
@@ -60,9 +61,10 @@ export const Collapsed: Story = {
     ),
 };
 
-/** The bare nav, no page frame — useful for inspecting spacing and states. */
-export const NavOnly: Story = {
+/** The bare nav with every section expanded — shows all menu items at once. */
+export const AllMenuItems: Story = {
     args: {
         defaultActiveKey: "key metrics",
+        defaultAllExpanded: true,
     },
 };

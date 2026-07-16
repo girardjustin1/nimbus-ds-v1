@@ -40,6 +40,8 @@ export interface GlobalNavProps {
     defaultActiveKey?: string;
     /** Start collapsed to the 64px icon rail. */
     defaultCollapsed?: boolean;
+    /** Start with every collapsible section expanded (shows all menu items). */
+    defaultAllExpanded?: boolean;
     /** Called when an item is selected. */
     onSelect?: (item: GlobalNavItem) => void;
     className?: string;
@@ -49,6 +51,7 @@ export const GlobalNav = ({
     sections = navSections,
     defaultActiveKey = "performance insights",
     defaultCollapsed = false,
+    defaultAllExpanded = false,
     onSelect,
     className,
 }: GlobalNavProps) => {
@@ -56,10 +59,10 @@ export const GlobalNav = ({
     const [activeKey, setActiveKey] = useState(defaultActiveKey);
 
     // Open the section that holds the active item by default; static sections
-    // are always open.
+    // are always open. When defaultAllExpanded, open every section.
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(() =>
         Object.fromEntries(
-            sections.map((s) => [s.id, s.variant === "static" || s.items.some((i) => i.key === defaultActiveKey)]),
+            sections.map((s) => [s.id, defaultAllExpanded || s.variant === "static" || s.items.some((i) => i.key === defaultActiveKey)]),
         ),
     );
 
