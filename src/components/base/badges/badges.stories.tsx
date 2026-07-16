@@ -6,7 +6,7 @@ import { Badge } from "@/components/base/badges/badges";
  * Category tags / labels used throughout the blog UI (article categories, etc.).
  */
 const meta = {
-    title: "Components/Body/Badges",
+    title: "Components/Badges",
     component: Badge,
     parameters: { layout: "centered" },
     tags: ["autodocs"],
@@ -28,7 +28,7 @@ const COLORS = ["gray", "brand", "error", "warning", "success", "slate", "sky", 
 
 export const Default: Story = {};
 
-/** All badge colors (pill style) — brand is Nimbus teal. */
+/** All badge colors (pill style) — brand is Nimbus pink. */
 export const AllColors: Story = {
     render: (args) => (
         <div className="flex max-w-xl flex-wrap items-center gap-2">
