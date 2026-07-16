@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { GlobalNav } from "./global-nav";
 
 const meta = {
-    title: "Application/Navigation/Global Nav",
+    title: "Components/Navigation/Global Nav",
     component: GlobalNav,
     parameters: {
         layout: "fullscreen",
