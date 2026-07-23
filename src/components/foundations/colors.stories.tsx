@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { colorScales, type ColorStep } from "./color-scales.data";
 
 /**
  * Foundations → Colors
@@ -39,6 +40,29 @@ const Section = ({ title, description, children }: { title: string; description?
 
 const Grid = ({ children }: { children: ReactNode }) => (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">{children}</div>
+);
+
+/* ------------------------------------------------------------------------ *
+ * All Colors — every color scale from the Figma variable panel
+ * (reference/colors/072326/), rendered with the same swatch, section and grid
+ * template as the Palette story below.
+ *
+ * Reference view only: these values are NOT wired into theme.css yet.
+ * ------------------------------------------------------------------------ */
+
+const totalSwatches = colorScales.reduce((n, s) => n + s.steps.length, 0);
+
+/** Hex-driven twin of VarSwatch, for raw scale values. */
+const StepSwatch = ({ scale, step }: { scale: string; step: ColorStep }) => (
+    <div className="flex flex-col gap-1.5">
+        <div className="h-16 w-full rounded-lg ring-1 ring-black/10 ring-inset" style={{ background: step.hex }} />
+        <div className="flex flex-col">
+            <span className="text-xs font-semibold text-primary" title={`${scale} / ${step.step}`}>
+                {step.step}
+            </span>
+            <span className="text-xs text-tertiary lowercase">{step.hex}</span>
+        </div>
+    </div>
 );
 
 const brandSteps = ["25", "50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
@@ -105,6 +129,30 @@ export const Palette: Story = {
                     <VarSwatch varName="--color-bg-success-solid" label="success" />
                 </div>
             </Section>
+        </div>
+    ),
+};
+
+/** Every color scale from the Figma variable panel, in Figma order. */
+export const AllColors: Story = {
+    render: () => (
+        <div className="flex flex-col gap-12 bg-primary p-10">
+            <div className="flex flex-col gap-1">
+                <h2 className="text-display-xs font-semibold text-primary">All colors</h2>
+                <p className="text-md text-tertiary">
+                    All {colorScales.length} Nimbus color scales ({totalSwatches} colors), 25 through 950. Reference only — not yet connected to the theme.
+                </p>
+            </div>
+
+            {colorScales.map((scale) => (
+                <Section key={scale.name} title={scale.name} description={`${scale.steps.length} steps`}>
+                    <Grid>
+                        {scale.steps.map((step) => (
+                            <StepSwatch key={step.step} scale={scale.name} step={step} />
+                        ))}
+                    </Grid>
+                </Section>
+            ))}
         </div>
     ),
 };

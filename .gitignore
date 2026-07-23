@@ -27,7 +27,9 @@ dist-ssr
 *storybook.log
 storybook-static
 
-# Design-source screen exports (Figma PNGs) — kept local, not versioned
+# Design-source exports (Figma PNGs / raw token dumps) — kept local, not versioned.
+# Values extracted from these live in src/ (e.g. color-scales.data.ts).
 reference/screens/
 reference/screens - batch 2/
 reference/screens - batch 3/
+reference/colors/
